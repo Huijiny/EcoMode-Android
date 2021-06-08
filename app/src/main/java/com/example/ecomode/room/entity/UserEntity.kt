@@ -3,7 +3,7 @@ package com.example.ecomode.room.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
-@Entity
+@Entity(tableName = "user")
 data class UserEntity(
     @ColumnInfo(name = "username")
     val username: String,
