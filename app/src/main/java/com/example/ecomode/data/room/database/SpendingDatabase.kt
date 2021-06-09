@@ -1,13 +1,13 @@
-package com.example.ecomode.room.database
+package com.example.ecomode.data.room.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.ecomode.room.dao.SpendingDao
-import com.example.ecomode.room.dao.UserDao
-import com.example.ecomode.room.entity.SpendingEntity
-import com.example.ecomode.room.entity.UserEntity
+import com.example.ecomode.data.room.dao.SpendingDao
+import com.example.ecomode.data.room.dao.UserDao
+import com.example.ecomode.data.room.entity.SpendingEntity
+import com.example.ecomode.data.room.entity.UserEntity
 
 @Database(
     entities = [

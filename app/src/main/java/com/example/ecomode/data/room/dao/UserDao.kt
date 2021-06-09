@@ -1,7 +1,7 @@
-package com.example.ecomode.room.dao
+package com.example.ecomode.data.room.dao
 
 import androidx.room.*
-import com.example.ecomode.room.entity.UserEntity
+import com.example.ecomode.data.room.entity.UserEntity
 
 @Dao
 interface UserDao {

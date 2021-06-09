@@ -1,4 +1,4 @@
-package com.example.ecomode.room.entity
+package com.example.ecomode.data.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
