@@ -13,15 +13,15 @@ import com.example.ecomode.data.room.entity.UserEntity
 
 @Database(
     entities = [
-        UserEntity:: class,
-        SpendingEntity:: class
+        UserEntity::class,
+        SpendingEntity::class
     ],
     version = 1,
     exportSchema = false
 
 )
 @TypeConverters(Converters::class)
-abstract class SpendingDatabase: RoomDatabase() {
+abstract class SpendingDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun spendingDao(): SpendingDao
 

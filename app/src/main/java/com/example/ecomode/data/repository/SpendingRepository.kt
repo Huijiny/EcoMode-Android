@@ -13,6 +13,7 @@ class SpendingRepository(private val spendingDao: SpendingDao, private val date:
     suspend fun insert(spending: SpendingEntity) {
         spendingDao.insertSpending(spending)
     }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(spending: SpendingEntity) {
