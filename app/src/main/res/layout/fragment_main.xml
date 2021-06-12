@@ -23,8 +23,16 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:layout_constraintTop_toTopOf="parent"
-                app:menu="@menu/top_app_bar"/>
+                app:menu="@menu/top_app_bar">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="200,000원"/>
+            </com.google.android.material.appbar.MaterialToolbar>
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toolbar_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="parallax"
