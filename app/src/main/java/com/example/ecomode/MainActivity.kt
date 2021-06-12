@@ -2,14 +2,15 @@ package com.example.ecomode
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.ecomode.databinding.ActivityMainBinding
 import com.example.ecomode.databinding.FragmentMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }
