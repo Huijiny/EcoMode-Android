@@ -9,6 +9,9 @@ import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
 import com.example.ecomode.databinding.FragmentMainBinding
 import com.google.android.material.appbar.AppBarLayout
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private var _binding: FragmentMainBinding? = null
@@ -33,7 +36,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.title = ""
         binding.appBarLayout.addOnOffsetChangedListener(this)
-
+        binding.currentDate.text =  SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
         startAlphaAnimation(binding.toolbarTitle, 0, View.INVISIBLE)
     }
 
