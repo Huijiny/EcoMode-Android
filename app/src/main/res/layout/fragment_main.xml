@@ -8,13 +8,12 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.CollapsingToolbar.Collapsed"
-            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.CollapsingToolbar.Expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -29,7 +28,9 @@
                     android:id="@+id/toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="200,000원"/>
+                    android:layout_marginStart="30dp"
+                    android:text="200,000원"
+                    android:layout_marginLeft="30dp" />
             </com.google.android.material.appbar.MaterialToolbar>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/toolbar_detail"
@@ -71,10 +72,11 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="YYYY-mm"
                     android:layout_marginTop="21dp"
+                    android:drawableLeft="@drawable/ic_calendar"
                     app:layout_constraintStart_toStartOf="@+id/remain_text"
-                    app:layout_constraintTop_toBottomOf="@+id/remain_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/remain_text"
+                    tools:text="YYYY-MM"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -82,6 +84,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/receipt_bg_color"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
