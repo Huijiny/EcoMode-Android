@@ -29,6 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
+                    android:textColor="@color/money_text_color"
                     android:text="200,000원"
                     android:layout_marginLeft="30dp" />
             </com.google.android.material.appbar.MaterialToolbar>
@@ -45,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    android:textColor="@color/default_text_color"
                     android:text="희진아!"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="35sp"
+                    android:textColor="@color/money_text_color"
                     android:text="200,000원"
                     app:layout_constraintStart_toStartOf="@+id/name"
                     app:layout_constraintTop_toBottomOf="@+id/name"
@@ -64,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    android:textColor="@color/default_text_color"
                     android:text="남았구나!"
                     app:layout_constraintStart_toStartOf="@+id/budget"
                     app:layout_constraintTop_toBottomOf="@+id/budget"
@@ -76,6 +80,7 @@
                     android:layout_marginTop="21dp"
                     android:drawableLeft="@drawable/ic_calendar"
                     android:drawablePadding="8dp"
+                    android:textColor="@color/calendar_text_color"
                     app:layout_constraintStart_toStartOf="@+id/remain_text"
                     app:layout_constraintTop_toBottomOf="@+id/remain_text"
                     tools:text="YYYY-MM"/>
@@ -91,6 +96,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingBottom="100dp"
             android:animateLayoutChanges="true"
             android:layout_marginBottom="?attr/actionBarSize">
 
@@ -192,6 +198,17 @@
                 android:layout_marginLeft="28dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:paddingVertical="11dp"
+        android:paddingHorizontal="20dp"
+        android:text="또 결제야?"
+        android:layout_marginBottom="40dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="@drawable/green_button_with_radius"
+        android:drawableLeft="@drawable/ic_plus"
+        android:drawablePadding="15dp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
