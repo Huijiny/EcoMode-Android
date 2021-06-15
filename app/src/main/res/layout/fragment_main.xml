@@ -100,102 +100,32 @@
             android:animateLayoutChanges="true"
             android:layout_marginBottom="?attr/actionBarSize">
 
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/main_bg_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_hello"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="HELLO!!"
-                android:textColor="#000000"
-                android:textSize="70dp"
-                android:textStyle="bold"
+                android:src="@drawable/ic_rectangle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="28dp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_hello2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="HELLO2!!"
-                android:textColor="#000000"
-                android:textSize="70dp"
-                android:textStyle="bold"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_hello"
-                android:layout_marginLeft="28dp" />
+                app:layout_constraintTop_toBottomOf="@+id/view" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_hello3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="HELLO3!!"
-                android:textColor="#000000"
-                android:textSize="70dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_hello2"
-                android:layout_marginLeft="28dp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_hello4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="HELLO4!!"
-                android:textColor="#000000"
-                android:textSize="70dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_hello3"
-                android:layout_marginLeft="28dp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_hello6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="HELLO6!!"
-                android:textColor="#000000"
-                android:textSize="70dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_hello5"
-                android:layout_marginLeft="28dp" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_hello5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="HELLO45!!"
-                android:textColor="#000000"
-                android:textSize="70dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_hello4"
-                android:layout_marginLeft="28dp" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_hello7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="HELLO45!!"
-                android:textColor="#000000"
-                android:textSize="70dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_hello6"
-                android:layout_marginLeft="28dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
     <TextView
