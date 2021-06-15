@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,26 +13,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
-        android:text="오늘"
+        app:layout_constraintStart_toStartOf="@id/receipt"
         app:layout_constraintTop_toTopOf="@id/receipt"
-        app:layout_constraintStart_toStartOf="@id/receipt" />
+        tools:text="오늘" />
+
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2021.06.15"
-        android:layout_marginTop="3dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/receipt"
         app:layout_constraintTop_toBottomOf="@id/date_text"
-        app:layout_constraintStart_toStartOf="@id/receipt"/>
-
-
+        tools:text="2021.06.15" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,3 @@
-
 package com.example.ecomode
 
 import android.os.Bundle
@@ -12,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ecomode.databinding.FragmentMainBinding
 import com.google.android.material.appbar.AppBarLayout
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private var _binding: FragmentMainBinding? = null
-    val binding get()= _binding!!
+    val binding get() = _binding!!
 
     private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f
     private val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
@@ -25,6 +23,8 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     private var isTitleVisible = false
     private var isTitleDetailVisible = true
+
+    private lateinit var mainAdapter: MainAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +40,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         binding.appBarLayout.addOnOffsetChangedListener(this)
         binding.currentDate.text = SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
         startAlphaAnimation(binding.toolbarTitle, 0, View.INVISIBLE)
-        val mainAdapter = MainAdapter()
-        binding.mainRecycler.adapter = mainAdapter
-        binding.mainRecycler.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        binding.mainRecycler.setup()
 
         if (mainAdapter.spendingData.size == 0) {
             binding.mainRecycler.visibility = View.GONE
@@ -55,7 +49,16 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             binding.mainRecycler.visibility = View.VISIBLE
             binding.defaultView.visibility = View.GONE
         }
+    }
 
+    private fun RecyclerView.setup() {
+        mainAdapter = MainAdapter()
+        binding.mainRecycler.adapter = mainAdapter
+        binding.mainRecycler.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
     }
 
     override fun onDestroyView() {
@@ -74,12 +77,20 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private fun handleToolbarTitleVisibility(percentage: Float) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
             if (!isTitleVisible) {
-                startAlphaAnimation(binding.toolbarTitle, ALPHA_ANIMATIONS_DURATION.toLong(), View.VISIBLE)
+                startAlphaAnimation(
+                    binding.toolbarTitle,
+                    ALPHA_ANIMATIONS_DURATION.toLong(),
+                    View.VISIBLE
+                )
                 isTitleVisible = true
             }
         } else {
             if (isTitleVisible) {
-                startAlphaAnimation(binding.toolbarTitle, ALPHA_ANIMATIONS_DURATION.toLong(), View.INVISIBLE)
+                startAlphaAnimation(
+                    binding.toolbarTitle,
+                    ALPHA_ANIMATIONS_DURATION.toLong(),
+                    View.INVISIBLE
+                )
                 isTitleVisible = false
             }
         }
@@ -88,18 +99,26 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private fun handleAlphaOnAppbarDetail(percentage: Float) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
             if (isTitleDetailVisible) {
-                startAlphaAnimation(binding.toolbarDetail, ALPHA_ANIMATIONS_DURATION.toLong(), View.INVISIBLE)
+                startAlphaAnimation(
+                    binding.toolbarDetail,
+                    ALPHA_ANIMATIONS_DURATION.toLong(),
+                    View.INVISIBLE
+                )
                 isTitleDetailVisible = false
             }
         } else {
             if (!isTitleDetailVisible) {
-                startAlphaAnimation(binding.toolbarDetail, ALPHA_ANIMATIONS_DURATION.toLong(), View.VISIBLE)
+                startAlphaAnimation(
+                    binding.toolbarDetail,
+                    ALPHA_ANIMATIONS_DURATION.toLong(),
+                    View.VISIBLE
+                )
                 isTitleDetailVisible = true
             }
         }
     }
 
-    private fun startAlphaAnimation (view: View, duration: Long, visibility: Int) {
+    private fun startAlphaAnimation(view: View, duration: Long, visibility: Int) {
         if (visibility == View.VISIBLE) {
             AlphaAnimation(0f, 1f).also {
                 it.duration = duration

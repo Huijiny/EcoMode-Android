@@ -1,9 +1,8 @@
 package com.example.ecomode
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.ecomode.databinding.ActivityMainBinding
-import com.example.ecomode.databinding.FragmentMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
