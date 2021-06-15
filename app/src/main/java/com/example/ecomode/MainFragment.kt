@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ecomode.databinding.FragmentMainBinding
 import com.google.android.material.appbar.AppBarLayout
 import java.text.SimpleDateFormat
@@ -36,8 +38,24 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.title = ""
         binding.appBarLayout.addOnOffsetChangedListener(this)
-        binding.currentDate.text =  SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
+        binding.currentDate.text = SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
         startAlphaAnimation(binding.toolbarTitle, 0, View.INVISIBLE)
+        val mainAdapter = MainAdapter()
+        binding.mainRecycler.adapter = mainAdapter
+        binding.mainRecycler.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+
+        if (mainAdapter.spendingData.size == 0) {
+            binding.mainRecycler.visibility = View.GONE
+            binding.defaultView.visibility = View.VISIBLE
+        } else {
+            binding.mainRecycler.visibility = View.VISIBLE
+            binding.defaultView.visibility = View.GONE
+        }
+
     }
 
     override fun onDestroyView() {
