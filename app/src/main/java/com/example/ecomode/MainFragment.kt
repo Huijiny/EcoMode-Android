@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecomode.databinding.FragmentMainBinding
@@ -41,6 +42,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
         startAlphaAnimation(binding.appbar.toolbarTitle, 0, View.INVISIBLE)
         binding.mainRecycler.setup()
+        toolbarSetup()
 
         if (mainAdapter.spendingData.size == 0) {
             binding.mainRecycler.visibility = View.GONE
@@ -48,6 +50,19 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         } else {
             binding.mainRecycler.visibility = View.VISIBLE
             binding.defaultView.visibility = View.GONE
+        }
+    }
+
+    private fun toolbarSetup() {
+        binding.appbar.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.profile -> {
+                    navigateToProfile()
+                    true
+                }
+                else -> false
+
+            }
         }
     }
 
@@ -134,6 +149,9 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         }
 
     }
+
+    private fun navigateToProfile() =
+        findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
 
 
 }
