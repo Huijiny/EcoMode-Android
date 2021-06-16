@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_bg_color">#2e2e2e</color>
+    <color name="receipt_bg_color">#2e2e2e</color>
+    <color name="button_bg_color">#97c189</color>
+    <color name="default_text_color">#adadad</color>
+    <color name="money_text_color">#e5e5e5</color>
+    <color name="calendar_text_color">#d6d6d6</color>
+</resources>
