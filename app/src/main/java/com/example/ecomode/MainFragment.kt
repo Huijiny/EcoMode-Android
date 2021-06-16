@@ -37,9 +37,15 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.appBarLayout.addOnOffsetChangedListener(this)
-        binding.currentDate.text = SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
-        startAlphaAnimation(binding.toolbarTitle, 0, View.INVISIBLE)
+        binding.appbar.currentDate.text =
+            SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
+        startAlphaAnimation(binding.appbar.toolbarTitle, 0, View.INVISIBLE)
         binding.mainRecycler.setup()
+        mainAdapter.spendingData.apply {
+            add("오늘")
+            add("어제 ")
+            add("그제")
+        }
 
         if (mainAdapter.spendingData.size == 0) {
             binding.mainRecycler.visibility = View.GONE
@@ -77,7 +83,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
             if (!isTitleVisible) {
                 startAlphaAnimation(
-                    binding.toolbarTitle,
+                    binding.appbar.toolbarTitle,
                     ALPHA_ANIMATIONS_DURATION.toLong(),
                     View.VISIBLE
                 )
@@ -86,7 +92,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         } else {
             if (isTitleVisible) {
                 startAlphaAnimation(
-                    binding.toolbarTitle,
+                    binding.appbar.toolbarTitle,
                     ALPHA_ANIMATIONS_DURATION.toLong(),
                     View.INVISIBLE
                 )
@@ -99,7 +105,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
             if (isTitleDetailVisible) {
                 startAlphaAnimation(
-                    binding.toolbarDetail,
+                    binding.appbar.toolbarDetail,
                     ALPHA_ANIMATIONS_DURATION.toLong(),
                     View.INVISIBLE
                 )
@@ -108,7 +114,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         } else {
             if (!isTitleDetailVisible) {
                 startAlphaAnimation(
-                    binding.toolbarDetail,
+                    binding.appbar.toolbarDetail,
                     ALPHA_ANIMATIONS_DURATION.toLong(),
                     View.VISIBLE
                 )

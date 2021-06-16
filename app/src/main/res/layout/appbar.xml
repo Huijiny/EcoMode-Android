@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.CollapsingToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/top_app_bar">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:text="200,000원"
+            android:textColor="@color/money_text_color"
+            tools:text="200,000" />
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="21dp"
+        app:layout_collapseMode="parallax">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="희진아! "
+            android:textColor="@color/default_text_color"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="희진아!" />
+
+        <TextView
+            android:id="@+id/budget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200,000원"
+            android:textColor="@color/money_text_color"
+            android:textSize="35sp"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="200,000원" />
+
+        <TextView
+            android:id="@+id/remain_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남았구나! "
+            android:textColor="@color/default_text_color"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/budget"
+            app:layout_constraintTop_toBottomOf="@+id/budget"
+            tools:text="남았구나!" />
+
+        <TextView
+            android:id="@+id/current_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:drawableLeft="@drawable/ic_calendar"
+            android:drawablePadding="8dp"
+            android:textColor="@color/calendar_text_color"
+            app:layout_constraintStart_toStartOf="@+id/remain_text"
+            app:layout_constraintTop_toBottomOf="@+id/remain_text"
+            tools:text="YYYY-MM" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.appbar.CollapsingToolbarLayout>
