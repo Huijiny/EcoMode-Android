@@ -36,7 +36,6 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.title = ""
         binding.appBarLayout.addOnOffsetChangedListener(this)
         binding.currentDate.text = SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
         startAlphaAnimation(binding.toolbarTitle, 0, View.INVISIBLE)
