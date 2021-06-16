@@ -41,11 +41,6 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
         startAlphaAnimation(binding.appbar.toolbarTitle, 0, View.INVISIBLE)
         binding.mainRecycler.setup()
-        mainAdapter.spendingData.apply {
-            add("오늘")
-            add("어제 ")
-            add("그제")
-        }
 
         if (mainAdapter.spendingData.size == 0) {
             binding.mainRecycler.visibility = View.GONE
