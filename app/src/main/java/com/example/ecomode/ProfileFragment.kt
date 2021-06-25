@@ -1,17 +1,42 @@
 package com.example.ecomode
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.annotation.CallSuper
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.ecomode.data.repository.UserRepository
+import com.example.ecomode.data.room.database.SpendingDatabase
 import com.example.ecomode.databinding.FragmentProfileBinding
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
 
 class ProfileFragment : Fragment() {
 
-    private val profileViewModel by activityViewModels<ProfileViewModel>()
+    private val disposables by lazy { CompositeDisposable() }
+
+    private val database by lazy { SpendingDatabase.getDatabase(requireContext()) }
+    private val repository by lazy { UserRepository(database) }
+
+    private val profileViewModel by viewModels<ProfileViewModel> {
+        object: ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ProfileViewModel(repository) as T
+            }
+        }
+    }
+
+    private var budgetResult = ""
 
     private var _binding: FragmentProfileBinding? = null
     val binding get() = _binding!!
@@ -27,13 +52,47 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.back.setOnClickListener { navigateToMain() }
+        binding.completedButton.setOnClickListener { profileViewModel.insertUserInformation() }
         onBindViewModel()
+        setTextWatcher()
     }
 
-    private fun onBindViewModel() {
 
+    private fun onBindViewModel() {
+        profileViewModel.isUserInfoCompletedSubject
+            .observeOn(Schedulers.io())
+            .subscribe ( {
+                Log.i("complete", it.toString())
+                binding.completedButton.isEnabled = it
+            }, {
+              Log.e("Rx Error", it.localizedMessage)
+            })
+            .addToDisposables()
+    }
+
+    private fun setTextWatcher() {
+        binding.nameFieldInput.doOnTextChanged { text, _, _, _  ->
+            profileViewModel.setUserName(text.toString())
+        }
+
+        binding.budgetFieldInput.doOnTextChanged { text, _, _, _ ->
+            if (text.toString().isNotBlank() && text.toString() != budgetResult) {
+                val budget = text.toString().replace(",", "")
+                profileViewModel.setBudget(budget.toLong())
+                budgetResult = String.format("%,d", budget.toLongOrNull() ?: 0L)
+                binding.budgetFieldInput.setText(budgetResult)
+                binding.budgetFieldInput.setSelection(budgetResult.length)
+            }
+        }
     }
 
     private fun navigateToMain() = findNavController().navigate(R.id.action_profileFragment_to_mainFragment)
 
+    @CallSuper
+    override fun onDestroyView() {
+        super.onDestroyView()
+        disposables.clear()
+    }
+
+    fun Disposable.addToDisposables(): Disposable = addTo(disposables)
 }

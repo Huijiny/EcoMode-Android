@@ -1,5 +1,6 @@
 package com.example.ecomode.data.repository
 
+import android.app.Application
 import android.content.Context
 import com.example.ecomode.data.room.dao.UserDao
 import com.example.ecomode.data.room.database.SpendingDatabase
@@ -8,16 +9,18 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-class UserRepository(context:Context) {
+class UserRepository(val database: SpendingDatabase) {
     private var userDao: UserDao
 
     init {
-        val databse = SpendingDatabase.getDatabase(context)
-        userDao = databse.userDao()
+        userDao = database.userDao()
     }
 
-    suspend fun insertUser(user: UserEntity):Completable {
-        return userDao.setUserInfo(userEntity = user)
+    fun insertUser(userName: String, budget: Long): Completable {
+        return userDao.setUserInfo(
+            UserEntity(
+            username = userName, budget = budget
+        ))
     }
 
     fun getUser(): Flowable<UserEntity> {

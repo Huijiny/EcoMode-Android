@@ -4,6 +4,7 @@ import androidx.room.*
 import com.example.ecomode.data.room.entity.UserEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface UserDao {
@@ -11,8 +12,8 @@ interface UserDao {
     fun getUserInfo(): Flowable<UserEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun setUserInfo(userEntity: UserEntity): Completable
+    fun setUserInfo(userEntity: UserEntity): Completable
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateUserInfo(userEntity: UserEntity): Completable
+    fun updateUserInfo(userEntity: UserEntity): Completable
 }

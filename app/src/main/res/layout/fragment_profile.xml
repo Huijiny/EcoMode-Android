@@ -32,8 +32,10 @@
         app:layout_constraintTop_toBottomOf="@id/back">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_field_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:textColor="@color/black"
             />
 
@@ -52,14 +54,18 @@
         app:layout_constraintTop_toBottomOf="@id/name_field">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/budget_field_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:textColor="@color/black"
+            android:inputType="numberDecimal"
             android:paddingLeft="0dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/completedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="13dp"
