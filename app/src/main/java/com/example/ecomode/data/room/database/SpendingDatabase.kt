@@ -18,7 +18,6 @@ import com.example.ecomode.data.room.entity.UserEntity
     ],
     version = 1,
     exportSchema = false
-
 )
 @TypeConverters(Converters::class)
 abstract class SpendingDatabase : RoomDatabase() {

@@ -1,10 +1,9 @@
 package com.example.ecomode
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.example.ecomode.data.repository.UserRepository
+import com.example.ecomode.data.room.entity.UserEntity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -26,6 +25,10 @@ class ProfileViewModel(
         BehaviorSubject.createDefault(false)
     val isUserInfoCompletedSubject: Observable<Boolean> = _isUserInfoCompletedSubject
 
+    private val _isInsertUserCompletedSubject: BehaviorSubject<Boolean> =
+        BehaviorSubject.createDefault(false)
+    val isInsertUserCompletedSubject: Observable<Boolean> = _isInsertUserCompletedSubject
+
 
     init {
         _userInfoInputSubject
@@ -33,7 +36,7 @@ class ProfileViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ userInput ->
                 _isUserInfoCompletedSubject.onNext(userInput.isValidate())
-            },{
+            }, {
                 Log.e("Rx Error Logger", it.localizedMessage)
             })
             .addToDisposables()
@@ -56,12 +59,11 @@ class ProfileViewModel(
     fun insertUserInformation() {
         _userInfoInputSubject.firstOrError()
             .subscribeOn(Schedulers.io())
-            .subscribe ({ user ->
+            .subscribe({ user ->
                 if (!user.userName.isNullOrBlank() && user.budget != null) {
-                    userRepository.insertUser(
-                        userName = user.userName,
-                        budget = user.budget
-                    )
+                    userRepository.insertUser(UserEntity(user.userName, user.budget))
+                        .subscribe { _isInsertUserCompletedSubject.onNext(true) }
+                        .addToDisposables()
                 }
             }, {
                 Log.e("Rx Error insertingUser", it.localizedMessage)
@@ -82,7 +84,5 @@ class ProfileViewModel(
     )
 
     private fun User.isValidate(): Boolean =
-        !userName.isNullOrBlank() && !budget.toString().isNullOrBlank()
-
-
+        !userName.isNullOrBlank() && budget != null
 }

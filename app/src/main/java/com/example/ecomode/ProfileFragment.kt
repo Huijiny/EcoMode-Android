@@ -3,12 +3,11 @@ package com.example.ecomode
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.CallSuper
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ecomode.data.repository.UserRepository
 import com.example.ecomode.data.room.database.SpendingDatabase
 import com.example.ecomode.databinding.FragmentProfileBinding
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
@@ -25,11 +25,11 @@ class ProfileFragment : Fragment() {
 
     private val disposables by lazy { CompositeDisposable() }
 
-    private val database by lazy { SpendingDatabase.getDatabase(requireContext()) }
-    private val repository by lazy { UserRepository(database) }
-
     private val profileViewModel by viewModels<ProfileViewModel> {
-        object: ViewModelProvider.Factory {
+        object : ViewModelProvider.Factory {
+            private val database by lazy { SpendingDatabase.getDatabase(requireContext()) }
+            private val repository by lazy { UserRepository(database) }
+
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return ProfileViewModel(repository) as T
             }
@@ -58,20 +58,33 @@ class ProfileFragment : Fragment() {
     }
 
 
+    @SuppressLint("LongLogTag")
     private fun onBindViewModel() {
         profileViewModel.isUserInfoCompletedSubject
-            .observeOn(Schedulers.io())
-            .subscribe ( {
-                Log.i("complete", it.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
                 binding.completedButton.isEnabled = it
             }, {
-              Log.e("Rx Error", it.localizedMessage)
+                Log.e("User information input is all filled", it.localizedMessage)
+            })
+            .addToDisposables()
+
+        profileViewModel.isInsertUserCompletedSubject
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ isInserted ->
+                if (isInserted) {
+                    navigateToMain()
+                }
+            }, {
+                Log.e("User Information doesn't inserted", it.localizedMessage)
             })
             .addToDisposables()
     }
 
     private fun setTextWatcher() {
-        binding.nameFieldInput.doOnTextChanged { text, _, _, _  ->
+        binding.nameFieldInput.doOnTextChanged { text, _, _, _ ->
             profileViewModel.setUserName(text.toString())
         }
 
@@ -86,9 +99,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun navigateToMain() = findNavController().navigate(R.id.action_profileFragment_to_mainFragment)
+    private fun navigateToMain() =
+        findNavController().navigate(R.id.action_profileFragment_to_mainFragment)
 
-    @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
         disposables.clear()
