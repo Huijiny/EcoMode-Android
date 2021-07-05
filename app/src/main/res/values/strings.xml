@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_add_spending_text">내역을 추가해 \n에코모드를 실행해보세요!</string>
+    <string name="name_field">이름 또는 별명을 입력해주세요</string>
+    <string name="budget_field">목표금액을 입력해주세요</string>
+    <string name="completed">완료</string>
 </resources>

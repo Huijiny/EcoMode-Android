@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile.ProfileFragment">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:paddingHorizontal="22dp"
+        android:paddingVertical="17dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="40dp"
+        android:hint="@string/name_field"
+        android:textColorHint="@color/hint_text_color"
+        app:boxBackgroundColor="@color/main_bg_color"
+        app:boxStrokeColor="@color/button_bg_color"
+        app:boxStrokeWidth="1.5dp"
+        app:hintTextColor="@color/hint_label_color"
+        app:layout_constraintTop_toBottomOf="@id/back">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_field_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/budget_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:hint="@string/budget_field"
+        android:textColorHint="@color/hint_text_color"
+        app:boxBackgroundColor="@color/main_bg_color"
+        app:boxStrokeColor="@color/button_bg_color"
+        app:boxStrokeWidth="1.5dp"
+        app:hintTextColor="@color/hint_label_color"
+        app:layout_constraintTop_toBottomOf="@id/name_field">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/budget_field_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:paddingLeft="0dp"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/completedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/green_button_without_radius"
+        android:enabled="false"
+        android:fitsSystemWindows="true"
+        android:gravity="center"
+        android:paddingVertical="13dp"
+        android:text="@string/completed"
+        android:textColor="@color/button_text_color"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

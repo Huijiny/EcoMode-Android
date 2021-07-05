@@ -13,4 +13,9 @@
     <color name="default_text_color">#2c2c2c</color>
     <color name="money_text_color">#2c2c2c</color>
     <color name="calendar_text_color">#666666</color>
+    <color name="hint_label_color">#b0b0b0</color>
+    <color name="hint_text_color">#c8c8c8</color>
+    <color name="disabled_button_color">#eaeaea</color>
+    <color name="disabled_button_text_color">#949494</color>
+
 </resources>
