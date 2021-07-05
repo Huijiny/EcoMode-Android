@@ -15,8 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecomode.MainAdapter
 import com.example.ecomode.R
-import com.example.ecomode.data.sharedpreferences.EcoModeSharedPreferences
-import com.example.ecomode.data.sharedpreferences.EcoModeSharedPreferencesImpl
+import com.example.ecomode.data.sharedpreferences.UserSharedPreferencesImpl
 import com.example.ecomode.databinding.FragmentMainBinding
 import com.google.android.material.appbar.AppBarLayout
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +34,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     private val meViewModel by viewModels<MeViewModel> {
         object : ViewModelProvider.Factory {
-            private val repository by lazy { EcoModeSharedPreferencesImpl.create(requireContext())}
+            private val repository by lazy { UserSharedPreferencesImpl.create(requireContext())}
 
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return MeViewModel(repository) as T

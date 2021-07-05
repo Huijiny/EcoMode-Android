@@ -13,10 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ecomode.R
-import com.example.ecomode.data.repository.UserRepository
-import com.example.ecomode.data.room.database.SpendingDatabase
-import com.example.ecomode.data.sharedpreferences.EcoModeSharedPreferences
-import com.example.ecomode.data.sharedpreferences.EcoModeSharedPreferencesImpl
+import com.example.ecomode.data.sharedpreferences.UserSharedPreferencesImpl
 import com.example.ecomode.databinding.FragmentProfileBinding
 import com.example.ecomode.main.MeViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,7 +28,7 @@ class ProfileFragment : Fragment() {
 
     private val meViewModel by viewModels<MeViewModel> {
         object : ViewModelProvider.Factory {
-            private val repository by lazy { EcoModeSharedPreferencesImpl.create(requireContext())}
+            private val repository by lazy { UserSharedPreferencesImpl.create(requireContext())}
 
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return MeViewModel(repository) as T

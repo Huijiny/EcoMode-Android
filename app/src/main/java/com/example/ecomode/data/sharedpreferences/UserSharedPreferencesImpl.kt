@@ -6,8 +6,8 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
-class EcoModeSharedPreferencesImpl(sharedPreferences: SharedPreferences) :
-    EcoModeSharedPreferences {
+class UserSharedPreferencesImpl(sharedPreferences: SharedPreferences) :
+    UserSharedPreferences {
     private val prefSubject = BehaviorSubject.createDefault(sharedPreferences)
 
     private val prefChangeListener =
@@ -22,9 +22,9 @@ class EcoModeSharedPreferencesImpl(sharedPreferences: SharedPreferences) :
         private const val KEY_USER_BUDGET = "budget"
 
         @JvmStatic
-        fun create(context: Context): EcoModeSharedPreferencesImpl {
+        fun create(context: Context): UserSharedPreferencesImpl {
             val preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-            return EcoModeSharedPreferencesImpl(preferences)
+            return UserSharedPreferencesImpl(preferences)
         }
     }
 

@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.ecomode.data.room.Converters
 import com.example.ecomode.data.room.dao.SpendingDao
-import com.example.ecomode.data.room.dao.UserDao
 import com.example.ecomode.data.room.entity.SpendingEntity
 import com.example.ecomode.data.room.entity.UserEntity
 
@@ -21,7 +20,6 @@ import com.example.ecomode.data.room.entity.UserEntity
 )
 @TypeConverters(Converters::class)
 abstract class SpendingDatabase : RoomDatabase() {
-    abstract fun userDao(): UserDao
     abstract fun spendingDao(): SpendingDao
 
     companion object {
