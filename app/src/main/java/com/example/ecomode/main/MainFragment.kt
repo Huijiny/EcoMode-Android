@@ -67,7 +67,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         binding.appBarLayout.addOnOffsetChangedListener(this)
         binding.appbar.currentDate.text =
             SimpleDateFormat("yyyy-MM").format(Calendar.getInstance().time)
-        startAlphaAnimation(binding.appbar.toolbarTitle, 0, View.INVISIBLE)
+        startFadeOutAnimation(binding.appbar.toolbarTitle, 0)
         binding.mainRecycler.setup()
         toolbarSetup()
 
@@ -134,19 +134,17 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private fun handleToolbarTitleVisibility(percentage: Float) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
             if (!isTitleVisible) {
-                startAlphaAnimation(
+                startFadeInAnimation(
                     binding.appbar.toolbarTitle,
-                    ALPHA_ANIMATIONS_DURATION.toLong(),
-                    View.VISIBLE
+                    ALPHA_ANIMATIONS_DURATION.toLong()
                 )
                 isTitleVisible = true
             }
         } else {
             if (isTitleVisible) {
-                startAlphaAnimation(
+                startFadeOutAnimation(
                     binding.appbar.toolbarTitle,
-                    ALPHA_ANIMATIONS_DURATION.toLong(),
-                    View.INVISIBLE
+                    ALPHA_ANIMATIONS_DURATION.toLong()
                 )
                 isTitleVisible = false
             }
@@ -156,41 +154,39 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private fun handleAlphaOnAppbarDetail(percentage: Float) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
             if (isTitleDetailVisible) {
-                startAlphaAnimation(
+                startFadeOutAnimation(
                     binding.appbar.toolbarDetail,
-                    ALPHA_ANIMATIONS_DURATION.toLong(),
-                    View.INVISIBLE
+                    ALPHA_ANIMATIONS_DURATION.toLong()
                 )
                 isTitleDetailVisible = false
             }
         } else {
             if (!isTitleDetailVisible) {
-                startAlphaAnimation(
+                startFadeInAnimation(
                     binding.appbar.toolbarDetail,
-                    ALPHA_ANIMATIONS_DURATION.toLong(),
-                    View.VISIBLE
+                    ALPHA_ANIMATIONS_DURATION.toLong()
                 )
                 isTitleDetailVisible = true
             }
         }
     }
 
-    private fun startAlphaAnimation(view: View, duration: Long, visibility: Int) {
-        if (visibility == View.VISIBLE) {
-            AlphaAnimation(0f, 1f).also {
-                it.duration = duration
-                it.fillAfter = true
-                view.startAnimation(it)
-            }
-        } else {
-            AlphaAnimation(1f, 0f).also {
-                it.duration = duration
-                it.fillAfter = true
-                view.startAnimation(it)
-            }
+    private fun startFadeInAnimation(view: View, duration: Long) {
+        AlphaAnimation(0f, 1f).also {
+            it.duration = duration
+            it.fillAfter = true
+            view.startAnimation(it)
         }
-
     }
+
+    private fun startFadeOutAnimation(view: View, duration: Long) {
+        AlphaAnimation(1f, 0f).also {
+            it.duration = duration
+            it.fillAfter = true
+            view.startAnimation(it)
+        }
+    }
+
 
     private fun navigateToProfile() =
         findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
