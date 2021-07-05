@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ecomode.databinding.ItemMainReceiptBinding
 
 class MainAdapter : RecyclerView.Adapter<ReceiptViewHolder>() {
-    var spendingData = mutableListOf<String>()
+    val spendingData = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReceiptViewHolder {
         return ReceiptViewHolder(
