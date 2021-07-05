@@ -12,7 +12,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
-class MeViewModel(private val sharedPreferencesImpl: UserSharedPreferencesImpl): ViewModel() {
+class MeViewModel(private val sharedPreferencesImpl: UserSharedPreferencesImpl) : ViewModel() {
     private val disposables by lazy { CompositeDisposable() }
     private val _userInfoInputSubject: BehaviorSubject<User> =
         BehaviorSubject.createDefault(User())

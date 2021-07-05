@@ -34,7 +34,7 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     private val meViewModel by viewModels<MeViewModel> {
         object : ViewModelProvider.Factory {
-            private val repository by lazy { UserSharedPreferencesImpl.create(requireContext())}
+            private val repository by lazy { UserSharedPreferencesImpl.create(requireContext()) }
 
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return MeViewModel(repository) as T

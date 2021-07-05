@@ -2,7 +2,6 @@ package com.example.ecomode.main
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ecomode.data.sharedpreferences.UserSharedPreferences
 import com.example.ecomode.data.sharedpreferences.UserSharedPreferencesImpl
@@ -25,7 +24,4 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
 }
