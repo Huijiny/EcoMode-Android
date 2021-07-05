@@ -1,18 +1,29 @@
 package com.example.ecomode.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecomode.MainAdapter
 import com.example.ecomode.R
+import com.example.ecomode.data.sharedpreferences.EcoModeSharedPreferences
+import com.example.ecomode.data.sharedpreferences.EcoModeSharedPreferencesImpl
 import com.example.ecomode.databinding.FragmentMainBinding
 import com.google.android.material.appbar.AppBarLayout
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,9 +31,24 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private var _binding: FragmentMainBinding? = null
     val binding get() = _binding!!
 
-    private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f
-    private val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
-    private val ALPHA_ANIMATIONS_DURATION = 100
+    private val disposables by lazy { CompositeDisposable() }
+
+    private val meViewModel by viewModels<MeViewModel> {
+        object : ViewModelProvider.Factory {
+            private val repository by lazy { EcoModeSharedPreferencesImpl.create(requireContext())}
+
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MeViewModel(repository) as T
+            }
+        }
+    }
+
+    companion object {
+        private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f
+        private val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
+        private val ALPHA_ANIMATIONS_DURATION = 100
+    }
+
 
     private var isTitleVisible = false
     private var isTitleDetailVisible = true
@@ -53,6 +79,21 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             binding.mainRecycler.visibility = View.VISIBLE
             binding.defaultView.visibility = View.GONE
         }
+        onBindViewModel()
+    }
+
+    private fun onBindViewModel() {
+        meViewModel.getUserInformation()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                binding.appbar.name.text = it.userName
+                binding.appbar.budget.text = it.budget.toString()
+                binding.appbar.toolbarTitle.text = it.budget.toString()
+            }, {
+                Log.e("getUserInformationError", it.message.orEmpty())
+            })
+            .addToDisposable()
     }
 
     private fun toolbarSetup() {
@@ -155,5 +196,5 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private fun navigateToProfile() =
         findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
 
-
+    private fun Disposable.addToDisposable(): Disposable = addTo(disposables)
 }

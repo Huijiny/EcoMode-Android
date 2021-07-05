@@ -15,7 +15,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.ecomode.R
 import com.example.ecomode.data.repository.UserRepository
 import com.example.ecomode.data.room.database.SpendingDatabase
+import com.example.ecomode.data.sharedpreferences.EcoModeSharedPreferences
+import com.example.ecomode.data.sharedpreferences.EcoModeSharedPreferencesImpl
 import com.example.ecomode.databinding.FragmentProfileBinding
+import com.example.ecomode.main.MeViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -26,13 +29,12 @@ class ProfileFragment : Fragment() {
 
     private val disposables by lazy { CompositeDisposable() }
 
-    private val profileViewModel by viewModels<ProfileViewModel> {
+    private val meViewModel by viewModels<MeViewModel> {
         object : ViewModelProvider.Factory {
-            private val database by lazy { SpendingDatabase.getDatabase(requireContext()) }
-            private val repository by lazy { UserRepository(database) }
+            private val repository by lazy { EcoModeSharedPreferencesImpl.create(requireContext())}
 
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ProfileViewModel(repository) as T
+                return MeViewModel(repository) as T
             }
         }
     }
@@ -53,7 +55,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.back.setOnClickListener { navigateToMain() }
-        binding.completedButton.setOnClickListener { profileViewModel.insertUserInformation() }
+        binding.completedButton.setOnClickListener { meViewModel.insertUserInformation() }
         onBindViewModel()
         setTextWatcher()
     }
@@ -61,7 +63,7 @@ class ProfileFragment : Fragment() {
 
     @SuppressLint("LongLogTag")
     private fun onBindViewModel() {
-        profileViewModel.isUserInfoCompletedSubject
+        meViewModel.isUserInfoCompletedSubject
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -71,7 +73,7 @@ class ProfileFragment : Fragment() {
             })
             .addToDisposables()
 
-        profileViewModel.isInsertUserCompletedSubject
+        meViewModel.isInsertUserCompletedSubject
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ isInserted ->
@@ -86,13 +88,13 @@ class ProfileFragment : Fragment() {
 
     private fun setTextWatcher() {
         binding.nameFieldInput.doOnTextChanged { text, _, _, _ ->
-            profileViewModel.setUserName(text.toString())
+            meViewModel.setUserName(text.toString())
         }
 
         binding.budgetFieldInput.doOnTextChanged { text, _, _, _ ->
             if (text.toString().isNotBlank() && text.toString() != budgetResult) {
                 val budget = text.toString().replace(",", "")
-                profileViewModel.setBudget(budget.toLong())
+                meViewModel.setBudget(budget.toLong())
                 budgetResult = String.format("%,d", budget.toLongOrNull() ?: 0L)
                 binding.budgetFieldInput.setText(budgetResult)
                 binding.budgetFieldInput.setSelection(budgetResult.length)
