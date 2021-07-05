@@ -43,8 +43,8 @@ class MainFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     }
 
     companion object {
-        private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f
-        private val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
+        private const val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f
+        private const val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
         private val ALPHA_ANIMATIONS_DURATION = 100
     }
 
