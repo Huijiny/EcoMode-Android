@@ -1,4 +1,4 @@
-package com.example.ecomode
+package com.example.ecomode.profile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.ecomode.R
 import com.example.ecomode.data.repository.UserRepository
 import com.example.ecomode.data.room.database.SpendingDatabase
 import com.example.ecomode.databinding.FragmentProfileBinding

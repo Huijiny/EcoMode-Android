@@ -1,4 +1,4 @@
-package com.example.ecomode
+package com.example.ecomode.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ecomode.MainAdapter
+import com.example.ecomode.R
 import com.example.ecomode.databinding.FragmentMainBinding
 import com.google.android.material.appbar.AppBarLayout
 import java.text.SimpleDateFormat

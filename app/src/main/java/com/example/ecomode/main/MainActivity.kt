@@ -1,4 +1,4 @@
-package com.example.ecomode
+package com.example.ecomode.main
 
 import android.os.Bundle
 import android.view.Menu

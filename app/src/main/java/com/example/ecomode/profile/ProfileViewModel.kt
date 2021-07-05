@@ -1,4 +1,4 @@
-package com.example.ecomode
+package com.example.ecomode.profile
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
