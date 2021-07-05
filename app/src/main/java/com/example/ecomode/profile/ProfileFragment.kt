@@ -63,13 +63,28 @@ class ProfileFragment : Fragment() {
 
     @SuppressLint("LongLogTag")
     private fun onBindViewModel() {
+        meViewModel.getUserInformation()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.userName?.let { name ->
+                    binding.nameFieldInput.setText(name)
+                }
+                it.budget?.let { budget ->
+                    binding.budgetFieldInput.setText(budget.toString())
+                }
+            }, {
+                Log.e("Get user infor in profile", it.message.orEmpty())
+            })
+            .addToDisposables()
+
         meViewModel.isUserInfoCompletedSubject
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 binding.completedButton.isEnabled = it
             }, {
-                Log.e("User information input is all filled", it.localizedMessage)
+                Log.e("User information input is all filled", it.message.orEmpty())
             })
             .addToDisposables()
 
